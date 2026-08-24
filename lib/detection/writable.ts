@@ -3,7 +3,7 @@ import { parsePermissionString } from '@/lib/normalization/permissions';
 import type { AnalysisContext, DetectionRule, FindingDraft } from './types';
 
 const BENIGN_WRITABLE_PREFIXES = ['/tmp/', '/var/tmp/', '/dev/shm/'];
-const SENSITIVE_PREFIXES = ['/etc/', '/root/', '/usr/', '/lib/', '/opt/', '/boot/', '/sbin/', '/bin/'];
+const SENSITIVE_PREFIXES = ['/etc/', '/root/', '/usr/', '/lib/', '/opt/', '/boot/', '/sbin/', '/bin/', '/run/', '/var/run/'];
 
 export const writableFileRule: DetectionRule = {
   id: 'world-writable-file',

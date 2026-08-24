@@ -20,14 +20,16 @@ a static application: the server only ships the app itself.
 - **Structural parsing**, not regex soup: a proper section/subsection
   hierarchy, ANSI color resolution, and metadata extraction, all resilient
   to different LinPEAS versions, missing sections, and malformed input.
-- **Deterministic finding analysis** — over two dozen detection rules
-  covering SUID/SGID, capabilities, cron, writable files and directories,
-  sudo, SSH, credentials, PATH hijacking, kernel/exploit hints, containers,
-  NFS, mounts, users/groups, services, processes, environment variables,
-  network exposure, sensitive files, and PAM/authentication
-  misconfiguration — each with an explicit severity and confidence
-  rating. Color is used only as weak corroborating evidence, never as the
-  basis for a rating.
+- **Deterministic finding analysis** — around thirty detection rules
+  covering SUID/SGID, capabilities, cron (including wildcard-injection-
+  vulnerable commands run against a bare glob), writable files and
+  directories, sudo, SSH, credentials (private keys, cloud/SaaS API key
+  formats, JWTs), PATH hijacking, kernel/exploit hints, containers, NFS,
+  mounts, users/groups, services, processes, environment variables, network
+  exposure, sensitive files (including an exposed root home directory), and
+  PAM/authentication misconfiguration — each with an explicit severity and
+  confidence rating. Color is used only as weak corroborating evidence,
+  never as the basis for a rating.
 - **Session management** — every parsed scan is saved locally with derived
   metadata (host, OS, user, finding counts). Rename, duplicate, export,
   import, or delete sessions individually or in bulk.

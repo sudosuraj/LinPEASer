@@ -33,3 +33,35 @@ export const sensitiveFileReadableRule: DetectionRule = {
     return drafts;
   },
 };
+
+export const readableRootHomeRule: DetectionRule = {
+  id: 'readable-root-home',
+  category: 'sensitive-files',
+  evaluate(ctx: AnalysisContext): FindingDraft[] {
+    const drafts: FindingDraft[] = [];
+
+    for (const line of ctx.allLines) {
+      const tokens = line.text.trim().split(/\s+/);
+      if (tokens.length === 0) continue;
+      const path = tokens[tokens.length - 1];
+      if (path !== '/root' && path !== '/root/') continue;
+
+      const perm = parsePermissionString(tokens[0]);
+      if (!perm || perm.fileType !== 'd' || (!perm.otherRead && !perm.otherExec)) continue;
+
+      drafts.push({
+        title: "root's home directory is accessible to other users",
+        category: 'sensitive-files',
+        severity: perm.otherRead ? 'high' : 'medium',
+        confidence: 'confirmed',
+        description: `/root has permissions ${perm.raw}.`,
+        rationale: 'Any user able to list or traverse /root can often reach configuration files, SSH keys, shell history, or scripts left there by the root account.',
+        evidenceLineIndexes: [line.index],
+        context: { path, permissions: perm.raw },
+        tags: ['sensitive-file', 'root-home'],
+      });
+    }
+
+    return drafts;
+  },
+};

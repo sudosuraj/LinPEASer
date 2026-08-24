@@ -9,7 +9,10 @@ export const processFromWritableDirRule: DetectionRule = {
     const drafts: FindingDraft[] = [];
 
     for (const section of ctx.flatSections) {
-      if (section.kind !== 'processes') continue;
+      // LinPEAS versions vary in whether processes get their own section or
+      // share one with cron/services/timers — check all of them rather than
+      // assuming a single exact SectionKind.
+      if (section.kind !== 'processes' && section.kind !== 'cron' && section.kind !== 'services') continue;
       for (const line of section.lines) {
         if (!PROCESS_FROM_TMP_RE.test(line.text)) continue;
         drafts.push({

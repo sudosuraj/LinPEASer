@@ -2,12 +2,13 @@ import type { DetectionRule } from './types';
 import { suidRule, sgidRule } from './suidSgid';
 import { capabilitiesRule } from './capabilities';
 import { cronScheduleRule, writableCronLocationRule } from './cron';
+import { wildcardInjectionRule } from './wildcardInjection';
 import { writableFileRule } from './writable';
 import { pathHijackRule } from './pathHijack';
 import { sudoConfigRule } from './sudo';
 import { sshConfigRule } from './ssh';
 import { credentialKeywordRule } from './credentials';
-import { sensitiveFileReadableRule } from './sensitiveFiles';
+import { sensitiveFileReadableRule, readableRootHomeRule } from './sensitiveFiles';
 import { kernelInfoRule, exploitSuggesterRule } from './kernel';
 import { dockerSocketRule, containerContextRule } from './containers';
 import { nfsExportsRule } from './nfs';
@@ -33,12 +34,14 @@ export const allDetectionRules: DetectionRule[] = [
   capabilitiesRule,
   cronScheduleRule,
   writableCronLocationRule,
+  wildcardInjectionRule,
   writableFileRule,
   pathHijackRule,
   sudoConfigRule,
   sshConfigRule,
   credentialKeywordRule,
   sensitiveFileReadableRule,
+  readableRootHomeRule,
   kernelInfoRule,
   exploitSuggesterRule,
   dockerSocketRule,

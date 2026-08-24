@@ -15,6 +15,11 @@ interface LexiconEntry {
 const LEXICON: LexiconEntry[] = [
   { kind: 'suid-sgid', keywords: ['suid', 'sgid', 'guid files'] },
   { kind: 'capabilities', keywords: ['capabilities'] },
+  // Modern LinPEAS combines these four concepts under one major section
+  // title ("Processes, Crons, Timers, Services and Sockets") — check for
+  // that combination before the narrower single-concept keywords below so
+  // it doesn't get bucketed as just "cron".
+  { kind: 'processes', keywords: ['processes, cron', 'processes & cron', 'crons, timers'] },
   { kind: 'cron', keywords: ['cron', 'scheduled task', 'timer'] },
   { kind: 'sudo', keywords: ['sudo'] },
   { kind: 'ssh', keywords: ['ssh'] },
