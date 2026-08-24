@@ -4,6 +4,7 @@ import { LayoutGrid, Pencil, Plus } from 'lucide-react';
 import { useNavStore } from '@/lib/store/navStore';
 import { useScanStore } from '@/lib/store/scanStore';
 import { PrivacyBadge } from '@/components/ui/PrivacyBadge';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { Button } from '@/components/ui/Button';
 
 /** Persistent top-level chrome shown on the Sessions dashboard and the report view. */
@@ -46,6 +47,7 @@ export function TopNav({ breadcrumb, onRenameBreadcrumb }: { breadcrumb?: string
       </div>
       <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
         <PrivacyBadge className="hidden lg:inline-flex" />
+        <ThemeToggle />
         {route !== 'sessions' && (
           <Button size="sm" variant="ghost" onClick={goSessions} title="Sessions">
             <LayoutGrid className="h-3.5 w-3.5" />

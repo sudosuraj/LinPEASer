@@ -3,10 +3,12 @@ import { persist } from 'zustand/middleware';
 import type { Confidence, FindingCategory, Severity } from '@/types';
 
 export type ReportView = 'overview' | 'findings' | 'sections' | 'raw';
+export type Theme = 'light' | 'dark';
 
 interface UiState {
   activeView: ReportView;
   activeSectionId: string | null;
+  theme: Theme;
   sidebarCollapsed: boolean;
   /** Off-canvas sidebar drawer state on small screens; never persisted. */
   mobileNavOpen: boolean;
@@ -24,6 +26,8 @@ interface UiState {
 
   setActiveView: (view: ReportView) => void;
   setActiveSectionId: (id: string | null) => void;
+  setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
   /** Sets the active section and expands its ancestor chain in one step. */
   navigateToSection: (id: string, ancestorIds: string[]) => void;
   toggleSectionExpanded: (id: string) => void;
@@ -47,6 +51,7 @@ export const useUiStore = create<UiState>()(
     (set) => ({
       activeView: 'overview',
       activeSectionId: null,
+      theme: 'light',
       sidebarCollapsed: false,
       mobileNavOpen: false,
       lineWrap: true,
@@ -62,6 +67,8 @@ export const useUiStore = create<UiState>()(
 
       setActiveView: (activeView) => set({ activeView }),
       setActiveSectionId: (activeSectionId) => set({ activeSectionId }),
+      setTheme: (theme) => set({ theme }),
+      toggleTheme: () => set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
       navigateToSection: (id, ancestorIds) =>
         set((s) => {
           const next = new Set(s.expandedSectionIds);
@@ -111,7 +118,7 @@ export const useUiStore = create<UiState>()(
       name: 'linpeaser-ui-prefs',
       // Only true UI chrome preferences are persisted — never scan content,
       // filters, or anything derived from an uploaded report.
-      partialize: (state) => ({ sidebarCollapsed: state.sidebarCollapsed, lineWrap: state.lineWrap }),
+      partialize: (state) => ({ sidebarCollapsed: state.sidebarCollapsed, lineWrap: state.lineWrap, theme: state.theme }),
     }
   )
 );

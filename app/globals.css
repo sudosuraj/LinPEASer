@@ -59,6 +59,42 @@
   --ansi-bright-white: #f3f5f8;
 }
 
+/* Dark mode: the same restrained system, inverted — not a return to the
+   earlier neon/cyan look. One muted accent, standard semantic severity
+   hues, no glow. Code/terminal panels (--code-*, --ansi-*) are already
+   dark and stay as-is in both themes. */
+:root[data-theme='dark'] {
+  --bg-canvas: #0c0d10;
+  --bg-surface: #16171c;
+  --bg-surface-2: #1c1e24;
+  --bg-elevated: #1c1e24;
+  --bg-hover: #24262d;
+
+  --border-subtle: #26282f;
+  --border-strong: #383b44;
+
+  --text-primary: #edeef1;
+  --text-secondary: #9a9da6;
+  --text-muted: #686b73;
+
+  --accent: #7c8bf0;
+  --accent-soft: #7c8bf026;
+  --accent-fg: #10121f;
+
+  --severity-critical: #f2495f;
+  --severity-critical-soft: #f2495f22;
+  --severity-high: #ef8c4e;
+  --severity-high-soft: #ef8c4e22;
+  --severity-medium: #ddb23d;
+  --severity-medium-soft: #ddb23d22;
+  --severity-low: #6c9bf5;
+  --severity-low-soft: #6c9bf522;
+  --severity-interesting: #ab8af0;
+  --severity-interesting-soft: #ab8af022;
+  --severity-info: #9a9da6;
+  --severity-info-soft: #9a9da622;
+}
+
 @theme inline {
   --color-canvas: var(--bg-canvas);
   --color-surface: var(--bg-surface);
@@ -99,6 +135,9 @@
 
 html {
   color-scheme: light;
+}
+html[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 body {

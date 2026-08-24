@@ -11,6 +11,7 @@ import { formatBytes } from '@/utils/format';
 import { Button } from '@/components/ui/Button';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { PrivacyBadge } from '@/components/ui/PrivacyBadge';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useSessionsList } from '@/features/sessions/useSessionsList';
 
 type Mode = 'paste' | 'upload';
@@ -51,8 +52,8 @@ export function LandingScreen() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-6 py-16">
       <div className="w-full max-w-2xl">
-        {sessions.length > 0 && (
-          <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-between">
+          {sessions.length > 0 ? (
             <button
               onClick={() => setRoute('sessions')}
               className="flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-secondary"
@@ -60,9 +61,14 @@ export function LandingScreen() {
               <ArrowLeft className="h-3.5 w-3.5" />
               Back to Sessions
             </button>
+          ) : (
+            <span />
+          )}
+          <div className="flex items-center gap-2">
             <PrivacyBadge />
+            <ThemeToggle />
           </div>
-        )}
+        </div>
         <div className="mb-10 text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border-subtle bg-surface px-3 py-1 text-xs text-secondary">
             <Terminal className="h-3.5 w-3.5 text-accent" />
