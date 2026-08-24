@@ -1,7 +1,8 @@
 import { CONFIDENCE_WEIGHT, SEVERITY_WEIGHT } from '@/types';
 import type { Finding, ParseDiagnostic, Scan } from '@/types';
 import { generateId } from '@/utils/id';
-import { collectAllLines, findSectionForLine, flattenSections } from '@/lib/parser';
+import { buildRawLines } from '@/lib/parser/ansi';
+import { findSectionForLine, flattenSections } from '@/lib/parser';
 import { allDetectionRules } from '@/lib/detection';
 import type { AnalysisContext } from '@/lib/detection';
 import { dedupeFindings } from './dedupe';
@@ -9,7 +10,13 @@ import { dedupeFindings } from './dedupe';
 function buildContext(scan: Scan): AnalysisContext {
   return {
     scan,
-    allLines: collectAllLines(scan.sections),
+    // Section.lines excludes each section's own header line, so a section
+    // tree walk (collectAllLines) is NOT a complete, index-aligned document
+    // — array position would drift from RawLine.index the moment a header
+    // is skipped. Re-deriving from the preserved raw text keeps allLines[i]
+    // aligned with RawLine.index === i for every i, which evidence lookups
+    // below rely on.
+    allLines: buildRawLines(scan.rawOutput),
     flatSections: flattenSections(scan.sections),
   };
 }

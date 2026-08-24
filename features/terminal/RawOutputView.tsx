@@ -4,7 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useScanStore } from '@/lib/store/scanStore';
 import { useUiStore } from '@/lib/store/uiStore';
-import { collectAllLines } from '@/lib/parser';
+import { buildRawLines } from '@/lib/parser/ansi';
 import { AnsiLine } from './AnsiLine';
 import { TerminalToolbar } from './TerminalToolbar';
 
@@ -19,7 +19,10 @@ export function RawOutputView() {
   const [copied, setCopied] = useState(false);
 
   const parentRef = useRef<HTMLDivElement>(null);
-  const allLines = useMemo(() => (scan ? collectAllLines(scan.sections) : []), [scan]);
+  // Section content excludes each section's own header line, so it is not a
+  // complete transcript — re-derive from the preserved raw text instead,
+  // which is what "raw output" means: everything, including headers.
+  const allLines = useMemo(() => (scan ? buildRawLines(scan.rawOutput) : []), [scan]);
 
   const virtualizer = useVirtualizer({
     count: allLines.length,

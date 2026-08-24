@@ -34,6 +34,24 @@ describe('buildScan (smoke)', () => {
     expect(finding!.confidence).toBe('confirmed');
   });
 
+  it('evidence text is the actual line the finding was extracted from, not an unrelated line', () => {
+    // Regression test: evidence lookups used to index into a line list that
+    // silently excluded section headers, so array position drifted from the
+    // stored (true document) line index and evidence text came from a
+    // completely different, unrelated line.
+    const finding = scan.findings.find((f) => f.context?.path === '/usr/bin/find');
+    expect(finding).toBeDefined();
+    expect(finding!.evidence[0].text).toContain('/usr/bin/find');
+  });
+
+  it('every finding referencing a path has that path present in its own evidence text', () => {
+    for (const finding of scan.findings) {
+      if (!finding.context?.path) continue;
+      const combinedEvidence = finding.evidence.map((e) => e.text).join('\n');
+      expect(combinedEvidence).toContain(finding.context.path);
+    }
+  });
+
   it('lowers confidence for an unrecognized root-owned SUID binary', () => {
     const finding = scan.findings.find((f) => f.context?.path === '/opt/custom/tool');
     expect(finding).toBeDefined();

@@ -61,6 +61,13 @@ describe('buildRawLines', () => {
     expect(lines[1].signals).toContain('red-fg');
     expect(lines[1].signals).not.toContain('critical-combo');
   });
+
+  it('keeps array position aligned with RawLine.index for every line, including headers', () => {
+    const text = 'line zero\n══════╣ A header ╠══════\nline two\n╔══════╣ Sub header\nline four';
+    const lines = buildRawLines(text);
+    lines.forEach((line, position) => expect(line.index).toBe(position));
+    expect(lines).toHaveLength(5);
+  });
 });
 
 describe('classifyHeaderLine', () => {

@@ -152,19 +152,6 @@ function finalizeEndLines(sections: Section[]): number {
   return max;
 }
 
-/** Every RawLine across the whole tree, restored to original document order. */
-export function collectAllLines(sections: Section[]): RawLine[] {
-  const lines: RawLine[] = [];
-  const walk = (list: Section[]) => {
-    for (const s of list) {
-      lines.push(...s.lines);
-      if (s.subsections.length > 0) walk(s.subsections);
-    }
-  };
-  walk(sections);
-  return lines.sort((a, b) => a.index - b.index);
-}
-
 /** Depth-first flattening, used by search, stats, and evidence lookups. */
 export function flattenSections(sections: Section[]): Section[] {
   const out: Section[] = [];

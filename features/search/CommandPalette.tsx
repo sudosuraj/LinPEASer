@@ -5,7 +5,8 @@ import { CornerDownLeft, FileText, ListChecks, Search } from 'lucide-react';
 import type { Severity } from '@/types';
 import { useScanStore } from '@/lib/store/scanStore';
 import { useUiStore } from '@/lib/store/uiStore';
-import { collectAllLines, flattenSections } from '@/lib/parser';
+import { flattenSections } from '@/lib/parser';
+import { buildRawLines } from '@/lib/parser/ansi';
 import { findAncestorIds } from '@/lib/sectionRisk';
 import { SeverityDot } from '@/components/badges/SeverityBadge';
 import { cn } from '@/utils/cn';
@@ -72,6 +73,10 @@ function CommandPaletteDialog({ onClose }: { onClose: () => void }) {
     inputRef.current?.focus();
   }, []);
 
+  // Section content excludes each section's own header line, so it isn't a
+  // complete transcript to search against — re-derive from the raw text.
+  const allLines = useMemo(() => (scan ? buildRawLines(scan.rawOutput) : []), [scan]);
+
   const results = useMemo<ResultItem[]>(() => {
     if (!scan || query.trim().length === 0) return [];
     const q = query.trim().toLowerCase();
@@ -110,7 +115,7 @@ function CommandPaletteDialog({ onClose }: { onClose: () => void }) {
       });
     }
 
-    for (const line of collectAllLines(scan.sections)) {
+    for (const line of allLines) {
       if (items.filter((i) => i.kind === 'line').length >= 8) break;
       if (!line.text.toLowerCase().includes(q)) continue;
       items.push({
@@ -127,7 +132,7 @@ function CommandPaletteDialog({ onClose }: { onClose: () => void }) {
     }
 
     return items;
-  }, [scan, query, setActiveView, navigateToSection, setFindingsQuery, setPendingRawLineJump, onClose]);
+  }, [scan, query, allLines, setActiveView, navigateToSection, setFindingsQuery, setPendingRawLineJump, onClose]);
 
   const safeActiveIndex = results.length === 0 ? 0 : Math.min(activeIndex, results.length - 1);
 
