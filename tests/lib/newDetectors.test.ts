@@ -63,6 +63,66 @@ describe('expanded credential patterns', () => {
   });
 });
 
+describe('landmark CVE detection', () => {
+  describe('sudo Baron Samedit (CVE-2021-3156)', () => {
+    it('flags the top of the legacy vulnerable range (1.8.2)', () => {
+      const scan = buildScan('Sudo version 1.8.2');
+      const finding = scan.findings.find((f) => f.ruleId === 'sudo-baron-samedit');
+      expect(finding).toBeDefined();
+      expect(finding!.severity).toBe('high');
+    });
+
+    it('flags the last vulnerable legacy patch level (1.8.31p2)', () => {
+      const scan = buildScan('Sudo version 1.8.31p2');
+      expect(scan.findings.find((f) => f.ruleId === 'sudo-baron-samedit')).toBeDefined();
+    });
+
+    it('does not flag the fixed legacy version (1.8.32)', () => {
+      const scan = buildScan('Sudo version 1.8.32');
+      expect(scan.findings.find((f) => f.ruleId === 'sudo-baron-samedit')).toBeUndefined();
+    });
+
+    it('does not flag a legacy patch level past the fix (1.8.31p3)', () => {
+      const scan = buildScan('Sudo version 1.8.31p3');
+      expect(scan.findings.find((f) => f.ruleId === 'sudo-baron-samedit')).toBeUndefined();
+    });
+
+    it('flags the top of the stable vulnerable range (1.9.0)', () => {
+      const scan = buildScan('Sudo version 1.9.0');
+      expect(scan.findings.find((f) => f.ruleId === 'sudo-baron-samedit')).toBeDefined();
+    });
+
+    it('flags the last vulnerable stable patch level (1.9.5p1)', () => {
+      const scan = buildScan('Sudo version 1.9.5p1');
+      expect(scan.findings.find((f) => f.ruleId === 'sudo-baron-samedit')).toBeDefined();
+    });
+
+    it('does not flag the fixed stable version (1.9.5p2)', () => {
+      const scan = buildScan('Sudo version 1.9.5p2');
+      expect(scan.findings.find((f) => f.ruleId === 'sudo-baron-samedit')).toBeUndefined();
+    });
+
+    it('does not flag a later major version (1.9.9)', () => {
+      const scan = buildScan('Sudo version 1.9.9');
+      expect(scan.findings.find((f) => f.ruleId === 'sudo-baron-samedit')).toBeUndefined();
+    });
+  });
+
+  describe('pkexec PwnKit (CVE-2021-4034)', () => {
+    it('flags the presence of the pkexec binary', () => {
+      const scan = buildScan('-rwsr-xr-x 1 root root 30040 Jan 1 2020 /usr/bin/pkexec');
+      const finding = scan.findings.find((f) => f.ruleId === 'pkexec-pwnkit');
+      expect(finding).toBeDefined();
+      expect(finding!.severity).toBe('medium');
+    });
+
+    it('does not flag an unrelated binary', () => {
+      const scan = buildScan('-rwsr-xr-x 1 root root 30040 Jan 1 2020 /usr/bin/passwd');
+      expect(scan.findings.find((f) => f.ruleId === 'pkexec-pwnkit')).toBeUndefined();
+    });
+  });
+});
+
 describe('merged Processes/Cron/Timers/Services section (modern LinPEAS)', () => {
   it('still classifies as a processes-relevant section and runs process checks', () => {
     const text = [

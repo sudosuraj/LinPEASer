@@ -23,7 +23,8 @@ a static application: the server only ships the app itself.
 - **Deterministic finding analysis** — around thirty detection rules
   covering SUID/SGID, capabilities, cron (including wildcard-injection-
   vulnerable commands run against a bare glob), writable files and
-  directories, sudo, SSH, credentials (private keys, cloud/SaaS API key
+  directories, sudo (including version-range checks for landmark CVEs like
+  Baron Samedit), SSH, credentials (private keys, cloud/SaaS API key
   formats, JWTs), PATH hijacking, kernel/exploit hints, containers, NFS,
   mounts, users/groups, services, processes, environment variables, network
   exposure, sensitive files (including an exposed root home directory), and

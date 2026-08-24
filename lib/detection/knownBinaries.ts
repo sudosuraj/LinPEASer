@@ -63,6 +63,7 @@ export const HIGH_RISK_EXECUTABLES = new Set([
   'chmod',
   'chown',
   'setfacl',
+  'pkexec',
 ]);
 
 /** Capability names that grant a near-total or full privilege escalation path. */

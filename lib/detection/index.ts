@@ -9,6 +9,7 @@ import { sudoConfigRule } from './sudo';
 import { sshConfigRule } from './ssh';
 import { credentialKeywordRule } from './credentials';
 import { sensitiveFileReadableRule, readableRootHomeRule } from './sensitiveFiles';
+import { sudoBaronSameditRule, pkexecPwnkitRule } from './landmarkCves';
 import { kernelInfoRule, exploitSuggesterRule } from './kernel';
 import { dockerSocketRule, containerContextRule } from './containers';
 import { nfsExportsRule } from './nfs';
@@ -42,6 +43,8 @@ export const allDetectionRules: DetectionRule[] = [
   credentialKeywordRule,
   sensitiveFileReadableRule,
   readableRootHomeRule,
+  sudoBaronSameditRule,
+  pkexecPwnkitRule,
   kernelInfoRule,
   exploitSuggesterRule,
   dockerSocketRule,
