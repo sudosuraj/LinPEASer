@@ -93,7 +93,7 @@ export function LandingScreen() {
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Paste the full terminal output of linpeas.sh here…"
                   spellCheck={false}
-                  className="h-56 w-full resize-none rounded-lg border border-border-subtle bg-canvas p-3 font-mono text-xs leading-relaxed text-primary placeholder:text-muted focus:border-accent focus:outline-none"
+                  className="h-56 w-full resize-none rounded-lg border border-border-subtle bg-surface-2 p-3 font-mono text-xs leading-relaxed text-primary placeholder:text-muted focus:border-accent focus:outline-none"
                 />
                 <Button variant="primary" disabled={isParsing || text.trim().length === 0} onClick={() => void parse(text)}>
                   {isParsing ? 'Parsing…' : 'Parse Output'}

@@ -37,7 +37,7 @@ export function FindingFilters({ allFindings }: { allFindings: Finding[] }) {
             value={findingsQuery}
             onChange={(e) => setFindingsQuery(e.target.value)}
             placeholder="Search findings by title, path, or evidence…"
-            className="w-full rounded-md border border-border-subtle bg-canvas py-1.5 pl-8 pr-3 text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none"
+            className="w-full rounded-md border border-border-subtle bg-surface-2 py-1.5 pl-8 pr-3 text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none"
           />
         </div>
         <button

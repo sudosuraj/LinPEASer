@@ -90,7 +90,7 @@ export function RawOutputView() {
         onCopy={copyAll}
         copied={copied}
       />
-      <div ref={parentRef} className="flex-1 overflow-auto bg-canvas px-3 py-2">
+      <div ref={parentRef} className="code-scroll flex-1 overflow-auto bg-code-bg px-3 py-2">
         <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
           {virtualizer.getVirtualItems().map((item) => (
             <div key={item.key} style={{ position: 'absolute', top: 0, left: 0, right: 0, transform: `translateY(${item.start}px)` }}>

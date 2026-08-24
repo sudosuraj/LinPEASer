@@ -28,7 +28,7 @@ export function RenameDialog({
           value={name}
           onChange={(e) => setName(e.target.value)}
           maxLength={120}
-          className="w-full rounded-md border border-border-subtle bg-canvas px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none"
+          className="w-full rounded-md border border-border-subtle bg-surface-2 px-3 py-2 text-sm text-primary focus:border-accent focus:outline-none"
         />
         <div className="mt-5 flex justify-end gap-2">
           <Button variant="secondary" size="sm" type="button" onClick={onCancel}>

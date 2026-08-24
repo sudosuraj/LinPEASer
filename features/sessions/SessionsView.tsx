@@ -110,7 +110,7 @@ export function SessionsView() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search sessions…"
-                    className="w-full rounded-md border border-border-subtle bg-canvas py-1.5 pl-8 pr-3 text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none"
+                    className="w-full rounded-md border border-border-subtle bg-surface-2 py-1.5 pl-8 pr-3 text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none"
                   />
                 </div>
                 <div className="flex rounded-md border border-border-subtle bg-surface-2 p-0.5 text-xs">

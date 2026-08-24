@@ -54,10 +54,14 @@ export function AnsiLine({
   return (
     <div
       id={`line-${line.index}`}
-      className={cn('group flex font-mono text-[13px] leading-6 hover:bg-hover/60', !wrap && 'whitespace-pre', className)}
+      className={cn(
+        'group flex font-mono text-[13px] leading-6 text-code-text hover:bg-white/[0.04]',
+        !wrap && 'whitespace-pre',
+        className
+      )}
     >
       {showLineNumber && (
-        <span className="sticky left-0 mr-3 w-12 shrink-0 select-none pr-2 text-right text-[11px] text-muted/70 tabular-nums">
+        <span className="sticky left-0 mr-3 w-12 shrink-0 select-none bg-code-bg pr-2 text-right text-[11px] text-code-muted tabular-nums">
           {line.index + 1}
         </span>
       )}

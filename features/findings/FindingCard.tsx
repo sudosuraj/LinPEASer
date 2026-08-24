@@ -36,11 +36,11 @@ export function FindingCard({ finding, compact = false }: { finding: Finding; co
           {finding.evidence.length > 0 && (
             <div>
               <p className="mb-1 font-semibold uppercase tracking-wide text-muted">Evidence</p>
-              <div className="space-y-1 rounded-md border border-border-subtle bg-canvas p-2 font-mono">
+              <div className="space-y-1 rounded-md border border-code-border bg-code-bg p-2 font-mono">
                 {finding.evidence.slice(0, 6).map((e) => (
                   <div key={e.lineIndex} className="flex gap-2 whitespace-pre-wrap break-all">
-                    <span className="shrink-0 select-none text-muted">{e.lineIndex + 1}</span>
-                    <span className="text-secondary">{e.text}</span>
+                    <span className="shrink-0 select-none text-code-muted">{e.lineIndex + 1}</span>
+                    <span className="text-code-text">{e.text}</span>
                   </div>
                 ))}
               </div>

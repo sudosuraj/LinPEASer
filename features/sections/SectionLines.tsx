@@ -10,7 +10,7 @@ const VIRTUALIZE_THRESHOLD = 300;
 export function SectionLines({ lines }: { lines: RawLine[] }) {
   if (lines.length <= VIRTUALIZE_THRESHOLD) {
     return (
-      <div className="max-h-96 overflow-y-auto rounded-md border border-border-subtle bg-canvas p-2">
+      <div className="max-h-96 overflow-y-auto code-scroll rounded-md border border-code-border bg-code-bg p-2">
         {lines.map((line) => (
           <AnsiLine key={line.index} line={line} />
         ))}
@@ -30,7 +30,7 @@ function VirtualizedLines({ lines }: { lines: RawLine[] }) {
   });
 
   return (
-    <div ref={parentRef} className="max-h-96 overflow-y-auto rounded-md border border-border-subtle bg-canvas p-2">
+    <div ref={parentRef} className="max-h-96 overflow-y-auto code-scroll rounded-md border border-code-border bg-code-bg p-2">
       <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
         {virtualizer.getVirtualItems().map((item) => (
           <div

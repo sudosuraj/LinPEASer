@@ -66,7 +66,7 @@ export function FindingsView() {
         <select
           value={sortKey}
           onChange={(e) => setSortKey(e.target.value as SortKey)}
-          className="rounded-md border border-border-subtle bg-canvas px-2 py-1 text-xs text-secondary focus:border-accent focus:outline-none"
+          className="rounded-md border border-border-subtle bg-surface-2 px-2 py-1 text-xs text-secondary focus:border-accent focus:outline-none"
         >
           <option value="severity">Sort: Severity</option>
           <option value="confidence">Sort: Confidence</option>

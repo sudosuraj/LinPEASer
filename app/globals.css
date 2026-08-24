@@ -1,35 +1,45 @@
 @import 'tailwindcss';
 
 :root {
-  --bg-canvas: #0a0d12;
-  --bg-surface: #10141b;
-  --bg-surface-2: #151a22;
-  --bg-elevated: #1a2029;
-  --bg-hover: #1f2630;
+  --bg-canvas: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-2: #f5f6f8;
+  --bg-elevated: #ffffff;
+  --bg-hover: #f0f1f4;
 
-  --border-subtle: #212832;
-  --border-strong: #313b49;
+  --border-subtle: #e7e8ec;
+  --border-strong: #d3d5dc;
 
-  --text-primary: #e7ebf1;
-  --text-secondary: #9aa6b6;
-  --text-muted: #5f6b7a;
+  --text-primary: #17181c;
+  --text-secondary: #62666f;
+  --text-muted: #93969f;
 
-  --accent: #6b7cc7;
-  --accent-soft: #6b7cc72e;
+  --accent: #4a5bd0;
+  --accent-soft: #4a5bd014;
   --accent-fg: #ffffff;
 
-  --severity-critical: #f6415f;
-  --severity-critical-soft: #f6415f1f;
-  --severity-high: #fb8b3c;
-  --severity-high-soft: #fb8b3c1f;
-  --severity-medium: #f2c94c;
-  --severity-medium-soft: #f2c94c1f;
-  --severity-low: #5aa9ff;
-  --severity-low-soft: #5aa9ff1f;
-  --severity-interesting: #b592f5;
-  --severity-interesting-soft: #b592f51f;
-  --severity-info: #8b96a5;
-  --severity-info-soft: #8b96a51f;
+  --severity-critical: #d7263d;
+  --severity-critical-soft: #d7263d16;
+  --severity-high: #c2560c;
+  --severity-high-soft: #c2560c16;
+  --severity-medium: #966006;
+  --severity-medium-soft: #96600616;
+  --severity-low: #1d5fd6;
+  --severity-low-soft: #1d5fd616;
+  --severity-interesting: #7239c9;
+  --severity-interesting-soft: #7239c916;
+  --severity-info: #6b6f78;
+  --severity-info-soft: #6b6f7816;
+
+  /* Terminal/evidence panels stay dark regardless of app theme — this is
+     what preserves faithful ANSI color rendering (LinPEAS output is
+     authored for a dark terminal) and reads as an embedded code block,
+     the same way documentation sites keep code samples dark on a light
+     page. */
+  --code-bg: #14161c;
+  --code-border: #262a35;
+  --code-text: #d7dbe4;
+  --code-muted: #6b7280;
 
   --ansi-black: #12161d;
   --ansi-red: #ef5a6f;
@@ -74,6 +84,11 @@
   --color-interesting: var(--severity-interesting);
   --color-info: var(--severity-info);
 
+  --color-code-bg: var(--code-bg);
+  --color-code-border: var(--code-border);
+  --color-code-text: var(--code-text);
+  --color-code-muted: var(--code-muted);
+
   --font-sans: ui-sans-serif, 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, 'JetBrains Mono', 'Cascadia Code', 'SFMono-Regular', Consolas, 'Roboto Mono', monospace;
 }
@@ -83,7 +98,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -99,7 +114,7 @@ body {
   color: var(--text-primary);
 }
 
-/* Slim, unobtrusive scrollbars that fit the operator aesthetic. */
+/* Slim, unobtrusive scrollbars. */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--border-strong) transparent;
@@ -121,19 +136,25 @@ body {
   background-color: var(--text-muted);
 }
 
+/* Code/terminal panels keep their own dark scrollbar so the thumb stays
+   visible against --code-bg instead of the light-theme track color. */
+.code-scroll {
+  scrollbar-color: #3a3f4c transparent;
+}
+.code-scroll::-webkit-scrollbar-thumb {
+  background-color: #3a3f4c;
+}
+.code-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #4d5361;
+}
+
 mark.search-highlight {
   background: var(--accent-soft);
-  color: var(--text-primary);
+  color: var(--code-text);
   border-radius: 2px;
   padding: 0 1px;
 }
 mark.search-highlight[data-current='true'] {
   background: var(--accent);
   color: var(--accent-fg);
-}
-
-@media print {
-  html {
-    color-scheme: light;
-  }
 }

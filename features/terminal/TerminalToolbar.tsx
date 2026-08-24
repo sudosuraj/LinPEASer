@@ -37,7 +37,7 @@ export function TerminalToolbar({
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           placeholder="Search raw output…"
-          className="w-full rounded-md border border-border-subtle bg-canvas px-2.5 py-1.5 text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none"
+          className="w-full rounded-md border border-border-subtle bg-surface-2 px-2.5 py-1.5 text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none"
         />
         {query && (
           <>
@@ -66,7 +66,7 @@ export function TerminalToolbar({
           value={jumpValue}
           onChange={(e) => setJumpValue(e.target.value)}
           placeholder="Line #"
-          className="w-20 rounded-md border border-border-subtle bg-canvas px-2 py-1.5 text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none"
+          className="w-20 rounded-md border border-border-subtle bg-surface-2 px-2 py-1.5 text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none"
         />
       </form>
 
