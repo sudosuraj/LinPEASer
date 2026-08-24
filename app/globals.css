@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+
+:root {
+  --bg-canvas: #0a0d12;
+  --bg-surface: #10141b;
+  --bg-surface-2: #151a22;
+  --bg-elevated: #1a2029;
+  --bg-hover: #1f2630;
+
+  --border-subtle: #212832;
+  --border-strong: #313b49;
+
+  --text-primary: #e7ebf1;
+  --text-secondary: #9aa6b6;
+  --text-muted: #5f6b7a;
+
+  --accent: #35d0c0;
+  --accent-soft: #35d0c033;
+  --accent-fg: #04211d;
+
+  --severity-critical: #f6415f;
+  --severity-critical-soft: #f6415f1f;
+  --severity-high: #fb8b3c;
+  --severity-high-soft: #fb8b3c1f;
+  --severity-medium: #f2c94c;
+  --severity-medium-soft: #f2c94c1f;
+  --severity-low: #5aa9ff;
+  --severity-low-soft: #5aa9ff1f;
+  --severity-interesting: #b592f5;
+  --severity-interesting-soft: #b592f51f;
+  --severity-info: #8b96a5;
+  --severity-info-soft: #8b96a51f;
+
+  --ansi-black: #12161d;
+  --ansi-red: #ef5a6f;
+  --ansi-green: #63d297;
+  --ansi-yellow: #eec25f;
+  --ansi-blue: #6aa9f4;
+  --ansi-magenta: #cd8bf0;
+  --ansi-cyan: #4fd2d9;
+  --ansi-white: #d6dbe3;
+  --ansi-bright-black: #46505f;
+  --ansi-bright-red: #ff7a8a;
+  --ansi-bright-green: #82e8b4;
+  --ansi-bright-yellow: #ffd876;
+  --ansi-bright-blue: #8ac0ff;
+  --ansi-bright-magenta: #e2acff;
+  --ansi-bright-cyan: #7ce9ef;
+  --ansi-bright-white: #f3f5f8;
+}
+
+@theme inline {
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-surface-2: var(--bg-surface-2);
+  --color-elevated: var(--bg-elevated);
+  --color-hover: var(--bg-hover);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+
+  --color-critical: var(--severity-critical);
+  --color-high: var(--severity-high);
+  --color-medium: var(--severity-medium);
+  --color-low: var(--severity-low);
+  --color-interesting: var(--severity-interesting);
+  --color-info: var(--severity-info);
+
+  --font-sans: ui-sans-serif, 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'Cascadia Code', 'SFMono-Regular', Consolas, 'Roboto Mono', monospace;
+}
+
+* {
+  border-color: var(--border-subtle);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text-primary);
+}
+
+/* Slim, unobtrusive scrollbars that fit the operator aesthetic. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--border-strong);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}
+
+mark.search-highlight {
+  background: var(--accent-soft);
+  color: var(--text-primary);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+mark.search-highlight[data-current='true'] {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+@media print {
+  html {
+    color-scheme: light;
+  }
+}
